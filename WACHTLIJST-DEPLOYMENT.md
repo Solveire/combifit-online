@@ -2,7 +2,7 @@
 
 Deze branch voegt een aparte pagina `/wachtlijst/` toe met het formulier. De bestaande landingspagina krijgt een link in de navigatie en een aanmeldsectie vóór de footer. Bestaande foto's, pakketten, betaallinks en overige functionaliteit blijven behouden.
 
-De aanmelding gaat naar `https://crm.jjscombifitdriel.nl/api/waitlist/public`. Dat endpoint staat op de bijbehorende `feat/combifit-waitlist` branch van `Solveire/jjscombifit-crm-pages` en gebruikt dezelfde D1-database als het CRM. De frontend bevat geen secrets en kan geen CRM-contactgegevens ophalen.
+De aanmelding gaat naar `https://jjscombifit-crm-pages.pages.dev/api/waitlist/public`. Dat endpoint staat op de bijbehorende `feat/combifit-waitlist` branch van `Solveire/jjscombifit-crm-pages` en gebruikt dezelfde D1-database als het CRM. De frontend bevat geen secrets en kan geen CRM-contactgegevens ophalen.
 
 Publiceer eerst de CRM-uitbreiding nadat de D1-migratie en Turnstile-variabelen zijn geconfigureerd. Controleer vervolgens dat deze repository de bedoelde bestaande landingspagina publiceert en merge pas daarna deze websitebranch. Zonder werkende CRM-/Turnstile-configuratie toont het formulier een foutmelding en blijft verzenden geblokkeerd.
 

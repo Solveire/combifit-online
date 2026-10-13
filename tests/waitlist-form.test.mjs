@@ -16,3 +16,5 @@ const offline=await fixture({configOk:false});assert.equal(offline.button.disabl
 console.log('Passed: required privacy field, programs, disabled-until-verified submission, payload, validation, success focus, error preservation and unavailable configuration. No live requests.');
 
 const landing=readFileSync('index.html','utf8');assert.match(landing,/href="wachtlijst\/"/);assert.ok(!landing.includes('id="combifit-waitlist-form"'));assert.match(html,/src="\.\.\/waitlist.js"/);assert.match(html,/href="\.\.\/waitlist.css"/);assert.match(html,/<main>/);assert.match(html,/alt="JJ’s Combifit Driel"/);console.log('Passed: standalone /wachtlijst/ route, original logo, relative assets and landing-page link; no duplicated form on landing page.');
+
+assert.equal(okay.requests[1].url,'https://jjscombifit-crm-pages.pages.dev/api/waitlist/public');
