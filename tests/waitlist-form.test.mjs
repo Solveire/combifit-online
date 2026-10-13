@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-const source=readFileSync('waitlist.js','utf8'),html=readFileSync('index.html','utf8');
+const source=readFileSync('waitlist.js','utf8'),html=readFileSync('wachtlijst/index.html','utf8');
 assert.match(html,/name="privacyConsent" type="checkbox" required/);assert.match(html,/<option>Combifit Community<\/option>/);assert.match(html,/<option>Persoonlijke coaching<\/option>/);
 async function fixture({valid=true,result={ok:true},responseOk=true,configOk=true}={}){
  let handler,callbacks,requests=[];const button={disabled:true,textContent:''},message={textContent:'',hidden:false},security={textContent:''},success={hidden:true,focus(){this.focused=true}},form={hidden:false,querySelector:()=>button,reportValidity:()=>valid,addEventListener:(_,h)=>handler=h};
@@ -14,3 +14,5 @@ const failed=await fixture({responseOk:false,result:{error:'Opslaan mislukt'}});
 const invalid=await fixture({valid:false});invalid.callbacks.callback('token');await invalid.submit();assert.equal(invalid.requests.length,1);
 const offline=await fixture({configOk:false});assert.equal(offline.button.disabled,true);assert.match(offline.message.textContent,/tijdelijk niet beschikbaar/);
 console.log('Passed: required privacy field, programs, disabled-until-verified submission, payload, validation, success focus, error preservation and unavailable configuration. No live requests.');
+
+const landing=readFileSync('index.html','utf8');assert.match(landing,/href="wachtlijst\/"/);assert.ok(!landing.includes('id="combifit-waitlist-form"'));assert.match(html,/src="\.\.\/waitlist.js"/);assert.match(html,/href="\.\.\/waitlist.css"/);assert.match(html,/<main>/);assert.match(html,/alt="JJ’s Combifit Driel"/);console.log('Passed: standalone /wachtlijst/ route, original logo, relative assets and landing-page link; no duplicated form on landing page.');
