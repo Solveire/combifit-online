@@ -1,6 +1,8 @@
 # Gescheiden pagina’s
 
-- `/` en `/index.html` verwijzen nog steeds naar de openbare `/wachtlijst/`.
+- Op `online.jjscombifitdriel.nl` zijn `/` en `/index.html` de afgeschermde landingspagina. De previewlink opent na autorisatie `/`.
+- Op `combifit-online.pages.dev` verwijzen `/` en `/index.html` naar de openbare `/wachtlijst/`.
+- De wachtlijst blijft afzonderlijk beschikbaar op `/wachtlijst/`, zonder wijzigingen.
 - `/programma` geeft alleen met een geldige HttpOnly-previewcookie de oorspronkelijke goedgekeurde landingspagina terug. Anders: 404.
 - `/preview?key=…` controleert een SHA-256-hash, plaatst de previewcookie voor zeven dagen en verwijdert de sleutel uit de adresbalk via een redirect naar `/programma`.
 - De volledige previewlink is een toegangssleutel: deel deze alleen met reviewers. In de repository staat uitsluitend de hash.

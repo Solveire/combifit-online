@@ -12,12 +12,14 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/preview') {
       if (!await valid(url.searchParams.get('key'))) return new Response('Niet gevonden', {status:404,headers:securityHeaders});
-      return new Response(null, {status:303,headers:{...securityHeaders,Location:'/programma', 'Set-Cookie':'combifit_preview='+url.searchParams.get('key')+'; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800'}});
+      return new Response(null, {status:303,headers:{...securityHeaders,Location:url.hostname === 'online.jjscombifitdriel.nl' ? '/' : '/programma', 'Set-Cookie':'combifit_preview='+url.searchParams.get('key')+'; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800'}});
     }
-    if (url.pathname === '/programma' || url.pathname === '/programma/' || url.pathname === '/programma/index.html') {
+    if (url.pathname === '/' || url.pathname === '/index.html' || url.pathname === '/programma' || url.pathname === '/programma/' || url.pathname === '/programma/index.html') {
+      if ((url.pathname === '/' || url.pathname === '/index.html') && url.hostname !== 'online.jjscombifitdriel.nl') return new Response(null, {status:302,headers:{Location:'/wachtlijst/'}});
       const key = (request.headers.get('Cookie') || '').split(';').map(v=>v.trim()).find(v=>v.startsWith('combifit_preview='))?.slice(17);
       if (!await valid(key)) return new Response('Niet gevonden', {status:404,headers:securityHeaders});
-      if (url.pathname !== '/programma') return new Response(null,{status:302,headers:{...securityHeaders,Location:'/programma'}});
+      const target = url.hostname === 'online.jjscombifitdriel.nl' ? '/' : '/programma';
+      if (url.pathname !== target) return new Response(null,{status:302,headers:{...securityHeaders,Location:target}});
       return new Response(landing,{headers:{...securityHeaders,'Content-Type':'text/html; charset=utf-8'}});
     }
     return env.ASSETS.fetch(request);
