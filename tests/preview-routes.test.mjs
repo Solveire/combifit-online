@@ -31,7 +31,11 @@ assert.equal(await (await request('/review1.webp')).text(),'unchanged static ass
 console.log('Passed: unauthorized routes blocked, preview cookie, exact approved landing HTML, both packages, no waitlist, unchanged static routing.');
 
 const host='online.jjscombifitdriel.nl';
-for (const path of ['/','/index.html']) assert.equal((await request(path,undefined,host)).status,404);
+const publicPage=await request('/',undefined,host);
+assert.equal(publicPage.status,200);
+assert.equal(publicPage.headers.get('X-Robots-Tag'),null);
+assert.ok((await publicPage.text()).includes('Combifit Community'));
+assert.equal((await request('/index.html',undefined,host)).headers.get('Location'),'/');
 const customLogin=await request('/preview?key='+key,undefined,host);
 assert.equal(customLogin.headers.get('Location'),'/');
 assert.equal((await request('/',cookie.split(';')[0],host)).status,200);

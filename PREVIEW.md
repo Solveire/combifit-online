@@ -1,6 +1,6 @@
 # Gescheiden pagina’s
 
-- Op `online.jjscombifitdriel.nl` zijn `/` en `/index.html` de afgeschermde landingspagina. De previewlink opent na autorisatie `/`.
+- Sinds de eigenaar op 16 oktober 2026 publicatie heeft toegestaan, zijn op `online.jjscombifitdriel.nl` `/` en `/index.html` de openbare landingspagina. De previewlink opent na autorisatie `/`.
 - Op `combifit-online.pages.dev` verwijzen `/` en `/index.html` naar de openbare `/wachtlijst/`.
 - De wachtlijst blijft afzonderlijk beschikbaar op `/wachtlijst/`, zonder wijzigingen.
 - `/programma` geeft alleen met een geldige HttpOnly-previewcookie de oorspronkelijke goedgekeurde landingspagina terug. Anders: 404.
